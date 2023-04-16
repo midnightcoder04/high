@@ -26,12 +26,24 @@
 <br>
 (◕‿◕)
 <br><br>
-<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
 src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/615575115&amp;">
 </iframe>
-<section id="bands"></section>
 </div>
 </div>
+<input type="file" id="audiofile" accept="audio/*"><br><br>
+<audio controls>
+    <source src="" id="player">
+</audio>
+<script>
+    var input = document.getElementById("audiofile");
+    var player = document.getElementById("player");
+    input.addEventListener("change", function(event) {
+        var file = event.target.files[0];
+        var url = URL.createObjectURL(file);
+        player.src = url;
+    });
+</script>
 <script src="main.js"></script> 
 </body>
 </html>

@@ -55,10 +55,7 @@
 /* ZOOM */
 body {
     zoom: 150%;
-    -moz-transform: scale(1.5);
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
-    transform-origin: 0 0;
+    /* transform-origin: 0 0; */
 }
 
 /* Font size for large devices */

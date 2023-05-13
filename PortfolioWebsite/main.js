@@ -1,7 +1,7 @@
 //ZOOM
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function() {
     document.body.style.zoom = "150%";
-}
+})
 
 // MENU SHOW Y HIDDEN
 const navMenu = document.getElementById('nav-menu'),

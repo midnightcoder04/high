@@ -1,6 +1,6 @@
 //ZOOM
 window.onload = function() {
-    document.body.style.zoom = "200%";
+    document.body.style.zoom = "150%";
 }
 
 // MENU SHOW Y HIDDEN

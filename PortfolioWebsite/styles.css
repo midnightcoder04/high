@@ -53,10 +53,10 @@
 }
 
 /* ZOOM */
-body {
+/* body {
     zoom: 150%;
-    /* transform-origin: 0 0; */
-}
+} */
+
 
 /* Font size for large devices */
 @media screen and (min-width: 968px) {

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Categories</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .profile-picture {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .doctor-card {
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .doctor-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .doctor-card-body {
+      padding: 15px;
+    }
+    .doctor-card-title {
+      font-size: 1.2em;
+      margin-bottom: 5px;
+    }
+    .doctor-card-specialty {
+      color: #777;
+    }
+    .category-section {
+      margin-top: 50px;
+    }
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      width: 100%;
+      padding: 10px 0;
+      position: relative;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Consultancy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('phome') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('appointments') }}">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('categories') }}">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('patient_profile') }}">
+                    {% if profile_image %}
+                    <img src="data:image/jpeg;base64,{{ profile_image }}" alt="Profile" class="profile-picture">
+                    {% else %}
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEJ-8GyKlZr5ZmEfRMmt5nR4tH_aP-crbgg&s" alt="Profile" class="profile-picture">
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+    </div>
+  </nav>
+
+  <!-- Doctor Categories Section -->
+  <div class="container mt-5">
+    <!-- Pediatricians -->
+    <div class="category-section">
+      <h3>Pediatricians</h3>
+      <p>Our pediatricians provide comprehensive care for infants, children, and adolescents.</p>
+      <div class="row">
+        {% for doctor in pediatricians %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Pediatrician</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Neurologists -->
+    <div class="category-section">
+      <h3>Neurologists</h3>
+      <p>Expert care for disorders of the nervous system, including the brain and spinal cord.</p>
+      <div class="row">
+        {% for doctor in neurologists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Neurologist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Cardiologists -->
+    <div class="category-section">
+      <h3>Cardiologists</h3>
+      <p>Specialized care for heart-related conditions and diseases.</p>
+      <div class="row">
+        {% for doctor in cardiologists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Cardiologist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Endocrinologists -->
+    <div class="category-section">
+      <h3>Endocrinologists</h3>
+      <p>Management of hormonal imbalances and endocrine disorders.</p>
+      <div class="row">
+        {% for doctor in endocrinologists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Endocrinologist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Psychiatrists -->
+    <div class="category-section">
+      <h3>Psychiatrists</h3>
+      <p>Expert mental health care for a variety of psychiatric conditions.</p>
+      <div class="row">
+        {% for doctor in psychiatrists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Psychiatrist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Dermatologists -->
+    <div class="category-section">
+      <h3>Dermatologists</h3>
+      <p>Treatment for skin conditions and diseases.</p>
+      <div class="row">
+        {% for doctor in dermatologists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Dermatologist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Oncologists -->
+    <div class="category-section">
+      <h3>Oncologists</h3>
+      <p>Comprehensive care for patients with cancer.</p>
+      <div class="row">
+        {% for doctor in oncologists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Oncologist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Gastroenterologists -->
+    <div class="category-section">
+      <h3>Gastroenterologists</h3>
+      <p>Specialized care for digestive system disorders.</p>
+      <div class="row">
+        {% for doctor in gastroenterologists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Gastroenterologist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Radiologists -->
+    <div class="category-section">
+      <h3>Radiologists</h3>
+      <p>Imaging specialists for diagnosing and treating diseases.</p>
+      <div class="row">
+        {% for doctor in radiologists %}
+        <div class="col-md-4">
+          <div class="doctor-card">
+            <img src="{{ doctor[3] }}" alt="Doctor Image">
+            <div class="doctor-card-body">
+              <h5 class="doctor-card-title">{{ doctor[0] }}</h5>
+              <p class="doctor-card-specialty">Radiologist</p>
+              <p>{{ doctor[1] }}</p>
+              <p>Rating: {{ doctor[2] }}</p>
+              <a href="{{ url_for('doctor_details', doctor_id=doctor[4]) }}" class="btn btn-primary">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light text-center py-3">
+    <div class="container">
+        <p>&copy; 2024 Consultancy. All rights reserved.</p>
+        <p>Designed with <i class="fas fa-heart text-danger">Love ♡</i></p>
+    </div>
+</footer>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

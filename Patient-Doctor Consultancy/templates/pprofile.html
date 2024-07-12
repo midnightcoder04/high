@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Profile</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure the body covers the full viewport height */
+    }
+    .profile-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .profile-header img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    .profile-details {
+      text-align: center;
+    }
+    .profile-details h2 {
+      margin-bottom: 10px;
+    }
+    .profile-details p {
+      margin-bottom: 5px;
+    }
+    .profile-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .signout-button {
+      text-align: center;
+      margin-top: 30px;
+    }
+    footer {
+      background-color: #343a40;
+      color: white;
+      text-align: center;
+      width: 100%;
+      padding: 10px 0;
+      position: relative;
+      bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Consultancy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('phome') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('appointments') }}">Appointments</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('categories') }}">Categories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('about') }}">About</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('patient_profile') }}">
+            {% if profile_image %}
+            <img src="data:image/jpeg;base64,{{ profile_image }}" alt="Profile" class="profile-picture" style="width: 40px; height: 40px; border-radius: 50%;">
+            {% else %}
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEJ-8GyKlZr5ZmEfRMmt5nR4tH_aP-crbgg&s" alt="Profile" class="profile-picture" style="width: 40px; height: 40px; border-radius: 50%;">
+            {% endif %}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Patient Profile Section -->
+  <div class="container mt-5">
+    <div class="profile-header">
+      {% if profile_image %}
+      <img src="data:image/jpeg;base64,{{ profile_image }}" alt="Patient Image">
+      {% else %}
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEJ-8GyKlZr5ZmEfRMmt5nR4tH_aP-crbgg&s" alt="Patient Image">
+      {% endif %}
+      <div class="profile-details">
+        <h2>{{ user_name }}</h2>
+        <p><strong>Email:</strong> {{ user_email }}</p>
+        <p><strong>Phone Number:</strong> {{ user_phoneno }}</p>
+      </div>
+    </div>
+
+    <!-- Profile Form -->
+    <div class="profile-form">
+      <form action="{{ url_for('update_profile') }}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="profileEmail">Change Email Address</label>
+            <input type="email" class="form-control" id="profileEmail" name="profileEmail" placeholder="Enter new email">
+        </div>
+        <div class="form-group">
+            <label for="profileImage">Upload New Profile Image</label>
+            <input type="file" class="form-control-file" id="profileImage" name="profileImage">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Update Profile</button>
+    </form>
+    </div>
+
+    <!-- Sign Out Button -->
+    <div class="signout-button">
+      <a href="{{ url_for('plogout') }}" class="btn btn-danger mb-3">Sign Out</a>
+    </div>
+  </div>
+  <footer class="bg-dark text-light text-center py-3">
+    <div class="container">
+        <p>&copy; 2024 Consultancy. All rights reserved.</p>
+        <p>Designed with <i class="fas fa-heart text-danger">Love ♡</i></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+body {
+    background-color: #FFFFFF; /* White */
+    color: #000000; /* Black */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .card {
+    border: none;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary {
+    background-color: #007BFF; /* Blue */
+    border-color: #007BFF; /* Blue */
+  }
+  
+  .btn-success {
+    background-color: #28A745; /* Green */
+    border-color: #28A745; /* Green */
+  }
+  
+  .btn-primary:hover, .btn-primary:focus {
+    background-color: #0056b3; /* Darker Blue */
+    border-color: #0056b3; /* Darker Blue */
+  }
+  
+  .btn-success:hover, .btn-success:focus {
+    background-color: #218838; /* Darker Green */
+    border-color: #218838; /* Darker Green */
+  }
+  
+  .fade-text {
+    opacity: 0.6;
+    cursor: pointer;
+  }
+  
+  .fade-text:hover {
+    opacity: 1;
+  }
+  

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Signup</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      background-color: #9999bb;
+      min-height: 100vh; /* Ensure the body covers the full viewport height */
+    }
+    .card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .form-group label {
+      color: #495057;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-6 offset-md-3">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-info mt-3">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        {% block content %}
+        <div class="card">
+          <div class="card-body">
+            <form id="patient-signup-form" action="{{ url_for('register') }}" method="POST" enctype="multipart/form-data">
+              <h3 class="text-center mb-4">Patient Sign Up</h3>
+              <div class="form-group">
+                <label for="signupName">Name</label>
+                <input type="text" class="form-control" id="signupName" name="name" placeholder="Enter name" value="{{ form_data.name if form_data else '' }}" required>
+              </div>
+              <div class="form-group">
+                <label for="signupEmail">Email</label>
+                <input type="email" class="form-control" id="signupEmail" name="email" placeholder="Enter email" value="{{ form_data.email if form_data else '' }}" required>
+              </div>
+              <div class="form-group">
+                <label for="signupPhone">Phone Number</label>
+                <input type="number" class="form-control" id="signupPhone" name="phoneno" placeholder="Enter phone number (10 digits)" value="{{ form_data.phoneno if form_data else '' }}" required>
+                <small id="phoneHelpBlock" class="form-text text-muted">Please enter a 10-digit phone number.</small>
+              </div>
+              <div class="form-group">
+                <label for="signupProfilePhoto">Upload Patient Photo</label>
+                <input type="file" class="form-control-file" id="signupProfilePhoto" name="profile_image">
+              </div>
+              <div class="form-group position-relative">
+                <label for="signupPassword">Password</label>
+                <input type="password" class="form-control" id="signupPassword" name="password" placeholder="Password" required>
+                <small id="passwordHelpBlock" class="form-text text-muted">
+                  Password must be at least 8 characters long, contain one uppercase letter, one number, and one special character.
+                </small>
+              </div>
+              <div class="form-group">
+                <label for="signupConfirmPassword">Confirm Password</label>
+                <input type="password" class="form-control" id="signupConfirmPassword" name="confirm_password" placeholder="Confirm password" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+              <p class="text-muted mt-2 text-center"><a href="{{ url_for('patient_login') }}">Back to Login</a></p>
+            </form>
+          </div>
+        </div>
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the body covers the full viewport height */
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #fff;
+        }
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .banner {
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            background-color: #9999bb;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .banner h1 {
+            font-size: 7rem;
+            font-family: 'Pacifico', cursive;
+            color: #000000;
+            opacity: 0.8;
+            background-color: #9999bb;
+            border: 10px solid #887722;
+            padding: 8px;
+        }
+        .info-section {
+            margin-top: 30px;
+            flex: 1; /* Allow content to grow to fill remaining space */
+        }
+        .sub-description {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        /* Footer styles */
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Consultancy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('dhome') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dabout') }}">About</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('doctor_profile') }}">
+                        {% if profile_image %}
+                        <img src="{{ profile_image }}" alt="Profile" class="profile-picture">
+                        {% else %}
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3onmoYr9iN85uwpvgKtwpET99_l4Et92T2g&s" alt="Profile" class="profile-picture">
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Banner -->
+    <div class="banner">
+        <h1>About Us</h1>
+    </div>
+
+    <!-- Information Section -->
+    <div class="container info-section">
+        <p class="sub-description">Our consultancy platform connects patients with top-rated doctors in various specialties, aiming to make healthcare more accessible through technology.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Consultancy. All rights reserved.</p>
+            <p>Designed with <i class="fas fa-heart text-danger">Love ♡</i></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

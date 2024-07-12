@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Details</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Ensure the body covers the full viewport height */
+    }
+    .profile-picture {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    .doc-picture {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .doctor-details {
+      margin-top: 50px;
+    }
+    .btn-request {
+      margin-top: 20px;
+    }
+            footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+        }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" hre f="#">Consultancy</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('phome') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('appointments') }}">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('categories') }}">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('patient_profile') }}">
+                    {% if profile_image %}
+                    <img src="data:image/jpeg;base64,{{ profile_image }}" alt="Profile" class="profile-picture">
+                    {% else %}
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEJ-8GyKlZr5ZmEfRMmt5nR4tH_aP-crbgg&s" alt="Profile" class="profile-picture">
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+    </div>
+  </nav>
+
+  <!-- Doctor Details Section -->
+  <div class="container">
+    <div class="row doctor-details">
+      <div class="col-md-4">
+        <img src="{{ doctor[5] }}" alt="Doctor Image" class="doc-picture">
+      </div>
+      <div class="col-md-8">
+        <h2>{{ doctor[1] }}</h2>
+        <p><strong>Specialty:</strong> {{ doctor[2] }}</p>
+        <p><strong>Bio:</strong> {{ doctor[3] }}</p>
+        <p><strong>Rating:</strong> {{ doctor[4] }}</p>
+        <!-- Replace the URL below with your Flask route for requesting appointments -->
+        <a href="{{ url_for('request_appointment', doctor_id=doctor[0]) }}" class="btn btn-primary btn-request">Request Appointment</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+        <p>&copy; 2024 Consultancy. All rights reserved.</p>
+        <p>Designed with <i class="fas fa-heart text-danger">Love ♡</i></p>
+    </div>
+  </footer>
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

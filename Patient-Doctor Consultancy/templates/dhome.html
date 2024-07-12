@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Home Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the body covers the full viewport height */
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #fff;
+        }
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .banner {
+            background-image: url('https://t4.ftcdn.net/jpg/06/44/46/61/360_F_644466113_EP9z2kXACTCtII0XXv1p0ATBbTj79pUC.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .banner h1 {
+            font-size: 7rem;
+            font-family: 'Pacifico', cursive;
+            color: #000000;
+            opacity: 0.8;
+            background-color: #9999bb;
+            border: 10px solid #887722;
+            padding: 8px;
+        }
+        .appointments-section {
+            margin-top: 30px;
+        }
+        .appointments-section h2 {
+            margin-top: 30px;
+        }
+        .appointments-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .appointments-list li {
+            margin-bottom: 10px;
+        }
+        .appointment-actions {
+            display: flex;
+            justify-content: left;
+            align-items: center;
+        }
+        .appointment-actions form {
+            display: inline;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Consultancy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('dhome') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('dabout') }}">About</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('doctor_profile') }}">
+                        {% if profile_image %}
+                        <img src="{{ profile_image }}" alt="Profile" class="profile-picture">
+                        {% else %}
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3onmoYr9iN85uwpvgKtwpET99_l4Et92T2g&s" alt="Profile" class="profile-picture">
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Banner -->
+    <div class="banner">
+        <h1>Welcome, Doctor</h1>
+    </div>
+
+    <!-- Appointments Section -->
+    <div class="container appointments-section">
+        <h2>Pending Appointments</h2>
+        <ul class="appointments-list">
+            {% for appointment in pending_appointments %}
+            <li class="card">
+                <div class="card-body">
+                    <p class="card-title">Name: {{ appointment[0] }}</p>
+                    {% if appointment[1] %}
+                    <p class="card-text">Date: {{ appointment[1].strftime('%B %d, %Y') }}</p>
+                    <p class="card-text">Time: {{ appointment[1].strftime('%I:%M %p') }}</p>
+                    {% endif %}
+                    <p class="card-text">Status: {{ appointment[2] }}</p>
+                    <div class="appointment-actions">
+                        <form action="{{ url_for('reschedule_appointment', appointment_id=appointment[3]) }}" method="post">
+                            <input type="date" name="new_date" required>
+                            <input type="time" name="new_time" required>
+                            <button type="submit" class="ml-4 btn btn-primary">Schedule</button>
+                        </form>
+                        <form action="{{ url_for('reject_appointment', appointment_id=appointment[3]) }}" method="post">
+                            <button type="submit" class="ml-4 btn btn-danger" {% if not appointment[2] in ['requested'] %}disabled{% endif %}>Reject</button>
+                        </form>
+                        <form action="{{ url_for('conclude_appointment', appointment_id=appointment[3]) }}" method="post">
+                            <button type="submit" class="ml-4 btn btn-success" {% if not appointment[2] in ['accepted'] %}disabled{% endif %}>Conclude</button>
+                        </form>
+                    </div>
+                    {% if appointment[2] in ['accepted'] %}
+                    <p class="list-group-item">GMeet Link: <a href="{{ appointment[4] }}" target="_blank">{{ appointment[4] }}</a></p>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Finished Appointments</h2>
+        <ul class="appointments-list">
+            {% for appointment in finished_appointments %}
+            <li class="card">
+                <div class="card-body">
+                    <p class="card-title">Name: {{ appointment[0] }}</p>
+                    {% if appointment[1] %}
+                    <p class="card-text">Date: {{ appointment[1].strftime('%Y-%m-%d') }}</p>
+                    <p class="card-text">Time: {{ appointment[1].strftime('%H:%M:%S') }}</p>
+                    {% endif %}
+                    <p class="card-text">Status: {{ appointment[2] }}</p>
+                    {% if appointment[2] in ['concluded'] %}
+                    <p class="list-group-item">GMeet Link: <a href="{{ appointment[4] }}" target="_blank">{{ appointment[4] }}</a></p>
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer class="bg-dark text-light text-center py-3">
+        <div class="container">
+            <p>&copy; 2024 Consultancy. All rights reserved.</p>
+            <p>Designed with <i class="fas fa-heart text-danger">Love ♡</i></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

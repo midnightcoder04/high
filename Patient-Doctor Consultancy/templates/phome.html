@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+        display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the body covers the full viewport height */
+        }
+        .navbar-nav .nav-item .nav-link {
+            color: #fff;
+        }
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .banner {
+            background-image: url('https://t4.ftcdn.net/jpg/06/44/46/61/360_F_644466113_EP9z2kXACTCtII0XXv1p0ATBbTj79pUC.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0.8;
+        }
+        .banner h1 {
+            font-size: 7rem;
+            font-family: 'Pacifico', cursive;
+            color: #000000;
+            opacity: 0.8;
+            background-color: #9999bb;
+            border: 10px solid #887722;
+            padding: 8px;
+        }
+        .info-section {
+            margin-top: 30px;
+        }
+        .btn {
+            margin-top: 1px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            width: 100%;
+            padding: 10px 0;
+            position: relative;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Consultancy</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('phome') }}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('appointments') }}">Appointments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('categories') }}">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('patient_profile') }}">
+                        {% if profile_image %}
+                        <img src="data:image/jpeg;base64,{{ profile_image }}" alt="Profile" class="profile-picture">
+                        {% else %}
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEJ-8GyKlZr5ZmEfRMmt5nR4tH_aP-crbgg&s" alt="Profile" class="profile-picture">
+                        {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Banner -->
+    <div class="banner">
+        <h1>We are here to help</h1>
+    </div>
+
+    <!-- Information Section -->
+    <div class="container info-section">
+        
+        <h2>Why Health Concerns Matter</h2>
+        <p>Regular health check-ups and timely consultations with medical professionals can prevent and manage diseases effectively. Our platform ensures that you have access to expert advice from the comfort of your home.</p>
+
+        <!-- Buttons -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('categories') }}" class="btn btn-primary btn-lg mr-4">Book Appointment Now</a>
+            <a href="{{ url_for('appointments') }}" class="btn btn-success btn-lg">See Your Appointments</a>
+        </div>
+
+        
+        <h2>Meet Our Doctors</h2>
+        <p>Our team of doctors includes specialists in various fields such as pediatrics, neurology, cardiology, endocrinology, psychiatry, dermatology, oncology, gastroenterology, and radiology.</p>
+        
+        <h3>Pediatricians</h3>
+        <p>Our pediatricians provide comprehensive care for infants, children, and adolescents.</p>
+        
+        <h3>Neurologists</h3>
+        <p>Expert care for disorders of the nervous system, including the brain and spinal cord.</p>
+        
+        <h3>Cardiologists</h3>
+        <p>Specialized care for heart-related conditions and diseases.</p>
+        
+        <h3>Endocrinologists</h3>
+        <p>Management of hormonal imbalances and endocrine disorders.</p>
+        
+        <h3>Psychiatrists</h3>
+        <p>Expert mental health care for a variety of psychiatric conditions.</p>
+        
+        <h3>Dermatologists</h3>
+        <p>Treatment for skin conditions and diseases.</p>
+        
+        <h3>Oncologists</h3>
+        <p>Comprehensive care for patients with cancer.</p>
+        
+        <h3>Gastroenterologists</h3>
+        <p>Specialized care for digestive system disorders.</p>
+        
+        <h3>Radiologists</h3>
+        <p>Advanced imaging services for accurate diagnosis and treatment planning.</p>
+
+    </div>
+
+    <footer class="bg-dark text-light text-center py-3">
+        <div class="container">
+            <p>&copy; 2024 Consultancy. All rights reserved.</p>
+            <p>Designed with <i class="fas fa-heart text-danger">Love ♡</i></p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS, Popper.js, and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

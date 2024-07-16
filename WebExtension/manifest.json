@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "My First WebE",
+    "version": "1.0",
+    "description": "Testing out the features I can implemenet with a web extension",
+    "permissions": ["activeTab"],
+    "action": {
+        "default_icon": {
+        "128": "images.jpg"
+    },
+        "default_title": "Mods",
+        "default_popup": "popup.html"
+    },
+    "icons": {
+        "128": "images.jpg"
+    },
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ]
+}
